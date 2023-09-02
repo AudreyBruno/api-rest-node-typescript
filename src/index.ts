@@ -1,3 +1,5 @@
 import { server } from './server/Server';
 
-server.listen(3333, () => console.log('Servidor rodando com sucesso!'));
+server.listen(process.env.PORT || 3333, () => {
+  console.log(`Servidor rodando na porta ${process.env.PORT || 3333}`);
+});
