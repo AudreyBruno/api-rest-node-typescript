@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import * as yup from 'yup';
-import { validation } from '../../shared/middleware';
 import { StatusCodes } from 'http-status-codes';
+
+import { validation } from '../../shared/middleware';
 
 interface ICidade {
   nome: string;
