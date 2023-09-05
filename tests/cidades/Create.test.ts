@@ -10,7 +10,7 @@ describe('Cidades - Create', () => {
       .send({ nome: 'Coronel Vivida' });
 
     expect(res.statusCode).toEqual(StatusCodes.CREATED);
-    expect(typeof res.body).toEqual(Number);
+    expect(typeof res.body).toEqual('number');
 
   });
 
