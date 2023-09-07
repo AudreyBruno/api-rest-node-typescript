@@ -8,7 +8,11 @@
     "start": "ts-node-dev ./src/index.ts",
     "test": "jest",
     "postinstall": "tsc",
-    "production": "node ./build/index.js"
+    "production": "node ./build/index.js",
+    "knex:rollback-all": "knex --knexfile ./src/server/database/knex/Environment.ts migrate:rollback --all",
+    "knex:rollback": "knex --knexfile ./src/server/database/knex/Environment.ts migrate:rollback",
+    "knex:migrate": "knex --knexfile ./src/server/database/knex/Environment.ts migrate:latest",
+    "knex:seed": "knex --knexfile ./src/server/database/knex/Environment.ts seed:run"
   },
   "dependencies": {
     "@types/jest": "^29.5.4",
@@ -26,7 +30,7 @@
     "@typescript-eslint/eslint-plugin": "^6.5.0",
     "@typescript-eslint/parser": "^6.5.0",
     "eslint": "^8.48.0",
-    "sqlite": "^5.0.1",
+    "sqlite3": "^5.1.6",
     "supertest": "^6.3.3",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.2.2"
