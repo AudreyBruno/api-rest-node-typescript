@@ -4,7 +4,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import { validation } from '../../shared/middleware';
 import { ICidade } from '../../database/models';
-import { CidadesProvaider } from '../../database/providers/cidades';
+import { CidadesProvider } from '../../database/providers/cidades';
 
 interface IBodyProps extends Omit<ICidade, 'id'> {}
 
@@ -16,7 +16,7 @@ export const createValidation = validation((getSchema) => ({
 
 export const create = async (req: Request<{}, {}, IBodyProps>, res: Response) => {
 
-  const result = await CidadesProvaider.create(req.body);
+  const result = await CidadesProvider.create(req.body);
 
   if (result instanceof Error){
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
