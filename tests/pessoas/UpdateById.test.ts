@@ -4,10 +4,21 @@ import { testServer } from '../jest.setup';
 
 
 describe('Pessoas - UpdateById', () => {
+  let accessToken = '';
   let cidadeId: number | undefined = undefined;
-  beforeAll(async () => {
+
+  beforeAll(async () =>{
+    const email = 'getById-pessoas@gmail.com';
+    const senha = '12345678';
+    const nome = 'Teste';
+    await testServer.post('/cadastrar').send({ nome, email, senha });
+    const singInRes = await testServer.post('/entrar').send({ email, senha });
+
+    accessToken = singInRes.body.accessToken;
+
     const resCidade = await testServer
       .post('/cidades')
+      .set({ Authorization: `Bearer ${accessToken}` })
       .send({ nome: 'Teste' });
 
     cidadeId = resCidade.body;
@@ -16,6 +27,7 @@ describe('Pessoas - UpdateById', () => {
   it('Atualiza registro', async () => {
     const res1 = await testServer
       .post('/pessoas')
+      .set({ Authorization: `Bearer ${accessToken}` })
       .send({
         cidadeId,
         nome: 'Audrey Update',
@@ -25,6 +37,7 @@ describe('Pessoas - UpdateById', () => {
 
     const resAtualizada = await testServer
       .put(`/pessoas/${res1.body}`)
+      .set({ Authorization: `Bearer ${accessToken}` })
       .send({
         cidadeId,
         nome: 'Audrey Update',
@@ -36,6 +49,7 @@ describe('Pessoas - UpdateById', () => {
   it('Tenta atualizar registro que não existe', async () => {
     const res1 = await testServer
       .put('/pessoas/99999')
+      .set({ Authorization: `Bearer ${accessToken}` })
       .send({
         cidadeId,
         nome: 'Audrey Update',
