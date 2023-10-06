@@ -1,4 +1,6 @@
 import { knex } from 'knex';
+import 'dotenv/config';
+
 import { development, test, production } from './Environment';
 
 const getEnvironment = () => {
