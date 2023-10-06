@@ -13,12 +13,12 @@ export async function up(knex: Knex) {
 
       table
         .bigInteger('cidadeId')
-        .index()
+        .unsigned()
         .notNullable()
         .references('id')
         .inTable(ETableNames.cidade)
-        .onUpdate('CASCADE')
-        .onDelete('RESTRICT');
+        .onDelete('RESTRICT')
+        .onUpdate('CASCADE');
 
       table.comment('Tabela usada para armazenar pessoas do sistema.');
     })
